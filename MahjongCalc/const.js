@@ -47,6 +47,18 @@ const hanname = [
     ['国士无双十三面', 'kokushijusan'], ['大四喜', 'daisushi'], ['小四喜', 'shousushi'], ['四杠子', 'sukantsu'], 
     ['宝牌', 'dora'], ['里宝牌', 'ura'], ['红宝牌', 'aka'], 
 ];
+const funame = [
+    ['底符', 'teifu'], ['门清荣和', 'menchinron'], ['自摸', 'tsumo'],
+    ['单骑', 'tanki'], ['坎张', 'kanchan'], ['偏张', 'penchan'],
+    ['自风雀头', 'jifu'], ['场风雀头', 'bafu'], ['三元牌雀头', 'sangen'],
+    ['中张明刻', 'chunchan1'], ['中张暗刻', 'chunchan2'], ['中张明杠', 'chunchan3'], ['中张暗杠', 'chunchan4'], 
+    ['幺九明刻', 'yaotyuu1'], ['幺九暗刻', 'yaotyuu2'], ['幺九明杠', 'yaotyuu3'], ['幺九暗杠', 'yaotyuu4'], 
+    ['七对', 'chitoi'], ['自摸平和', 'tsumopinfu'], ['鸣牌平和形', 'kuipinfu']
+];
+const yakutitle = [
+    ['诈和', 'chonbo'], ['满贯', 'mangan'], ['跳满', 'haneman'], ['倍满', 'baiman'], ['三倍满', 'sanbaiman'],
+    ['役满', '1yakuman'], ['两倍役满', '2yakuman'], ['三倍役满', '3yakuman'], ['四倍役满', '4yakuman'], ['五倍役满', '5yakuman'], ['六倍役满', '6yakuman'],
+];
 const majsoulfanid2name = [
     '',
     '门前清自摸和','立直','枪杠','岭上开花','海底摸月',

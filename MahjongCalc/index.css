@@ -1,0 +1,161 @@
+body{
+    overflow: hidden;
+    font-size: 180%;
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+body > div > div{
+    width: 800px;
+    height: 800px;
+    font-family: '楷体', '宋体';
+}
+input {
+    transform: scale(1.5, 1.5);
+}
+button {
+    font-family: '楷体', '宋体';
+    text-align: center;
+    font-size: 150%;
+}
+/* bootstrap button-default css */
+button:disabled {
+    background-color: #484848;
+    color: #373737;
+    border-color: #484848;
+    cursor: default;
+}
+button:enabled:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+button:enabled:active {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+    box-shadow: inset 0 3px 5px rgba(0,0,0,.125);
+}
+button {
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: #fff;
+    border-color: #ccc;
+    padding: 0px 6px;
+}
+/* bootstrap button css */
+
+.coverall {
+    z-index: 999; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 800px; 
+    height: 800px; 
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.invisible {
+    visibility: hidden;
+}
+
+.fuluwithtile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.textwithtile {
+    display: flex;
+    align-items: center;
+}
+.fuluwithtile > div, .textwithtile > div {
+    height: 53px;
+    display: flex;
+    justify-content: flex-start;
+}
+label.checked {
+    font-weight: bold;
+    color: red;
+}
+#maindiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+#maindiv > div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#maindiv > div > div {
+    border: 4px solid #000;
+}
+.selecteddiv {
+    border-color: red !important ;
+}
+#resultsdiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#restilesdiv, #resdorasdiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#restilesdiv > * {
+    margin: 0.5%;
+}
+#resdorasdiv > * {
+    margin: 2%;
+}
+#yakufulists {
+    display: flex;
+    justify-content: space-around;
+    min-height: 40%;
+}
+#yakufulists > * {
+    width: 49%;
+    border-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#center .up, #center .down, .hand .middle, .hand .down, .hand .kaze, .hand .score, #dicesdiv #showdicesdiv, #center #tenpaiconfirmdiv, #resultsdiv .hint, #cancelconfirm .yesnobtn, #cancelconfirm .hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.score, .corner, .reach, #matchtitle, #remaintile, #dora, #honba, #kyoutaku, body > div, #center #bakaze, #center #kyoku {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.light{
+    color: #FF0000;
+}
+body > div{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}

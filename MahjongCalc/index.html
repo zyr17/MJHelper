@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <title>MahjongCalc</title>
+    <link rel="stylesheet" href="index.css" type="text/css" />
+    <link rel="stylesheet" href="tiles.css" type="text/css" />
+    <!-- <script src="https://unpkg.com/vue@next"></script> -->
+    <script src="../lib/vue.3.2.29.global.prod.js"></script>
+</head>
+
+<body>
+    <div id="outmaindiv">
+        <div id="maindiv" @click="overallclick">
+            <div id="titilediv">番数点数计算（不包含供托和本场点）</div>
+            <div>
+                <div id="handdiv" class="textwithtile" @click="modifyselect('tehai')" :class="selected == 'tehai' ? 'selecteddiv' : ''">
+                    手牌
+                    <div style="width: 520px;">
+                        <div v-for="(tile, tindex) in tehai" class="tile" :class="'t' + tile" @click="tehaiclick(tindex)"></div>
+                    </div>
+                </div>
+                <div id="agaridiv" class="textwithtile" @click="modifyselect('agari')" :class="selected == 'agari' ? 'selecteddiv' : ''">
+                    和牌
+                    <div style="width: 40px;">
+                        <div class="tile" :class="'t' + agari"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div v-for="(fulu, index) in fulus" class="fuluwithtile" @click="modifyselect('fulu' + index)" :class="selected == 'fulu' + index ? 'selecteddiv' : ''" style="width: 160px;">
+                    副露{{ index + 1 }}
+                    <div style="height: 53px;" @click="fuluclick(index)">
+                        <div v-for="(tile, tindex) in fulu" class="tile" :class="'t' + tile"></div>
+                    </div>
+                </div>
+            </div>
+            <div :class="selected.slice(0, 4) == 'fulu' ? '' : 'invisible'">
+                <div v-for="(word, index) in fuluword">
+                    <input :id="'fulu' + index" type="radio" v-model="fululogic" :value="index"><label :for="'fulu' + index" :class="fululogic == index ? 'checked' : ''">{{ word }}</label>
+                </div>
+            </div>
+            <div>
+                <div id="doradiv" class="textwithtile" @click="modifyselect('dora')" :class="selected == 'dora' ? 'selecteddiv' : ''">
+                    宝牌指示牌
+                    <div style="width: 200px;">
+                        <div v-for="(tile, tindex) in dora" class="tile" :class="'t' + tile" @click="doraclick(tindex)"></div>
+                    </div>
+                </div>
+                <div id="uradiv" class="textwithtile" @click="modifyselect('ura')" :class="(selected == 'ura' ? 'selecteddiv' : '') + ' ' + (reach || doublereach ? '' : 'invisible')">
+                    里宝指示牌
+                    <div style="width: 200px;">
+                        <div v-for="(tile, tindex) in ura" class="tile" :class="'t' + tile" @click="uraclick(tindex)"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="tsumockbx" type="checkbox" v-model="tsumo" :disabled="chankan" @change="tenhou = rinshan = false;"><label for="tsumockbx" :class="{ checked: tsumo }">自摸(不必门清)</label>
+                </div>
+                <div class="textwithtile" @click="modifyselect('kaze')" :class="selected == 'kaze' ? 'selecteddiv' : ''">
+                    自风
+                    <div style="width: 40px;">
+                        <div class="tile" :class="'t' + kaze"></div>
+                    </div>
+                </div>
+                <div class="textwithtile" @click="modifyselect('bakaze')" :class="selected == 'bakaze' ? 'selecteddiv' : ''">
+                    场风
+                    <div style="width: 40px;">
+                        <div class="tile" :class="'t' + bakaze"></div>
+                    </div>
+                </div>
+                <div>
+                    <input id="reachckbx" type="checkbox" v-model="reach" :disabled="doublereach" @change="yipatsu = tenhou = false; ura = ['bk', 'bk', 'bk', 'bk', 'bk'];"><label for="reachckbx" :class="{ checked: reach }">立直</label>
+                </div>
+                <div>
+                    <input id="doublereachckbx" type="checkbox" v-model="doublereach" :disabled="reach" @change="yipatsu = tenhou = false; ura = ['bk', 'bk', 'bk', 'bk', 'bk'];"><label for="doublereachckbx" :class="{ checked: doublereach }":disabled="reach">双立直</label>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <input id="yipatsuckbx" type="checkbox" v-model="yipatsu" :disabled="!reach && !doublereach"><label for="yipatsuckbx" :class="{ checked: yipatsu }">一发</label>
+                </div>
+                <div>
+                    <input id="rinshanckbx" type="checkbox" v-model="rinshan" :disabled="!tsumo || chankan"><label for="rinshanckbx" :class="{ checked: rinshan }">岭上</label>
+                </div>
+                <div>
+                    <input id="chankanckbx" type="checkbox" v-model="chankan" :disabled="tsumo || haitei"><label for="chankanckbx" :class="{ checked: chankan }">枪杠</label>
+                </div>
+                <div>
+                    <input id="haiteickbx" type="checkbox" v-model="haitei" :disabled="chankan"><label for="haiteickbx" :class="{ checked: haitei }">海底/河底</label>
+                </div>
+                <div>
+                    <input id="tenhouckbx" type="checkbox" v-model="tenhou" :disabled="!tsumo || reach || doublereach"><label for="tenhouckbx" :class="{ checked: tenhou }">天和/地和</label>
+                </div>
+            </div>
+            <div v-for="(line, lindex) in panel">
+                <div v-for="(tile, tindex) in line" class="tile" :class="'t' + tile + ' ' + (showtile(tile) ? '' : 'invisible')" @click="tilesclick(tile)"></div>
+            </div>
+            <div>
+                <button @click="calc" :disabled="!cancalc">计算</button>
+                <button @click="showclearconfirm = true;">清空</button>
+            </div>
+            <div v-show="showclearconfirm" id="clearconfirm" style="display: block; position: absolute; height: 100%; width: 100%;">
+                <div class="coverall" style="font-size: 200%;">确认清空？</div>
+                <div class="yesnobtn" style="position: absolute; z-index: 1999; width: 100%; height: 20%; top: 80%; display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap;">
+                    <button style="color: red; font-weight: bold; height: auto" @click="showclearconfirm = false; init($event);">确认</button>
+                    <button style="height: auto" @click="showclearconfirm = false;">取消</button>
+                </div>
+            </div>
+            <div v-show="showresults" id="resultsdiv" class="coverall" style="display: block; position: absolute; height: 100%; width: 100%;">
+                <div id="restilesdiv">
+                    <div id="reshanddiv" class="textwithtile" :class="selected == 'tehai' ? 'selecteddiv' : ''">
+                        <div>
+                            <div v-for="(tile, tindex) in tehai" class="tile" :class="'t' + tile"></div>
+                        </div>
+                    </div>
+                    <div id="agaridiv" class="textwithtile" :class="selected == 'agari' ? 'selecteddiv' : ''">
+                        <div style="width: 40px;">
+                            <div class="tile" :class="'t' + agari"></div>
+                        </div>
+                    </div>
+                    <div v-for="(fulu, index) in fulus" class="fuluwithtile" :class="selected == 'fulu' + index ? 'selecteddiv' : ''">
+                        <div style="height: 53px;">
+                            <div v-for="(tile, tindex) in fulu" class="tile" :class="'t' + tile"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="resdorasdiv">
+                    <div id="doradiv" class="textwithtile" >
+                        宝牌指示牌
+                        <div style="width: 200px;">
+                            <div v-for="(tile, tindex) in dora" class="tile" :class="'t' + tile"></div>
+                        </div>
+                    </div>
+                    <div id="uradiv" class="textwithtile">
+                        里宝指示牌
+                        <div style="width: 200px;">
+                            <div v-for="(tile, tindex) in ura" class="tile" :class="'t' + tile"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="font-size: 200%;">
+                    {{ results.yaku }} 番 {{ results.fu }} 符{{ results.resulttitle ? '，' : ''}}{{ results.resulttitle }}
+                </div>
+                <div style="font-size: 200%;">
+                    {{ results.pointsrule }}
+                </div>
+                <div id="yakufulists">
+                    <div id="yakulistdiv">
+                        <div v-for="yaku in results.yakulist">{{ yaku[0] }}&emsp;{{ yaku[1] }}番</div>
+                    </div>
+                    <div id="fulistdiv">
+                        <div v-for="fu in results.fulist">{{ fu[0] }}&emsp;{{ fu[1] }}符</div>
+                    </div>
+                </div>
+                <button @click="showresults = false;">确认</button>
+            </div>
+        </div>
+    </div>
+    <script src="const.js"></script>
+    <script src="algorithm.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
