@@ -414,7 +414,11 @@ const VueApp = {
             this.settings.manualnextkyoku = false;
         },
         manualpointclick() {
-            this.nextround(this.settings.manualpoints, this.settings.manualnextkyoku, this.settings.manualkyoutaku, this.settings.manualkyoutakustart);
+            let points = [];
+            for (let i = 0; i < this.settings.manualpoints.length; i ++ )
+                points.push(this.settings.manualpoints[(i - this.kyoku + 4) % 4]);
+            console.log(points, this.settings.manualkyoutakustart);
+            this.nextround(points, this.settings.manualnextkyoku, this.settings.manualkyoutaku, (this.settings.manualkyoutakustart + this.kyoku) % 4);
         },
         updatedeltascore(index) {
             let baseline = this.players[index].score;
