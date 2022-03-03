@@ -165,7 +165,7 @@
             <div v-show="settings.showroundresults || settings.showfinalresults" id="resultsdiv" @click="resultsdivclick();">
                 <div class="hint">{{ settings.showhint ? '点击任意位置关闭' : '' }}</div>
                 <div v-for="(res, index) in settings.roundresults" class="resultscore" :class="settings.positionname[index] + ' ' + resultfontcolor(res)" :index="index">
-                    {{ res > 0 ? '+' : res < 0 ? '-' : '±' }}{{ Math.abs(res).toFixed(1) }}
+                    {{ res > 0 ? '+' : res < 0 ? '-' : '±' }}{{ parseInt(Math.abs(res * 10)) / 10 }}
                 </div>
             </div>
             <div v-if="settings.showdices" id="dicesdiv" :class="settings.positionname[kyoku]" @click="settings.showdices = false">
