@@ -58,7 +58,7 @@
             </div>
             <div>
                 <div>
-                    <input id="tsumockbx" type="checkbox" v-model="tsumo" :disabled="chankan" @change="tenhou = rinshan = false;"><label for="tsumockbx" :class="{ checked: tsumo }">自摸(不必门清)</label>
+                    <input id="tsumockbx" type="checkbox" v-model="tsumo" :disabled="chankan" @change="tenhou = rinshan = false;"><label for="tsumockbx" :class="{ checked: tsumo }">自摸(不是荣和就选)</label>
                 </div>
                 <div class="textwithtile" @click="modifyselect('kaze')" :class="selected == 'kaze' ? 'selecteddiv' : ''">
                     自风
@@ -84,13 +84,13 @@
                     <input id="yipatsuckbx" type="checkbox" v-model="yipatsu" :disabled="!reach && !doublereach"><label for="yipatsuckbx" :class="{ checked: yipatsu }">一发</label>
                 </div>
                 <div>
-                    <input id="rinshanckbx" type="checkbox" v-model="rinshan" :disabled="!tsumo || chankan"><label for="rinshanckbx" :class="{ checked: rinshan }">岭上</label>
+                    <input id="rinshanckbx" type="checkbox" v-model="rinshan" :disabled="!tsumo || chankan || haitei"><label for="rinshanckbx" :class="{ checked: rinshan }">岭上</label>
                 </div>
                 <div>
                     <input id="chankanckbx" type="checkbox" v-model="chankan" :disabled="tsumo || haitei"><label for="chankanckbx" :class="{ checked: chankan }">枪杠</label>
                 </div>
                 <div>
-                    <input id="haiteickbx" type="checkbox" v-model="haitei" :disabled="chankan"><label for="haiteickbx" :class="{ checked: haitei }">海底/河底</label>
+                    <input id="haiteickbx" type="checkbox" v-model="haitei" :disabled="chankan || rinshan"><label for="haiteickbx" :class="{ checked: haitei }">海底/河底</label>
                 </div>
                 <div>
                     <input id="tenhouckbx" type="checkbox" v-model="tenhou" :disabled="!tsumo || reach || doublereach"><label for="tenhouckbx" :class="{ checked: tenhou }">天和/地和</label>

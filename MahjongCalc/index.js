@@ -198,7 +198,7 @@ const VueApp = {
                 'honba': 0, 
                 'jifu': parseInt(this.kaze[0]) - 1, 
                 'bafu': parseInt(this.bakaze[0]) - 1,
-                'reach': this.reach, 
+                'reach': this.reach + this.doublereach * 2, 
                 'yipatsu': this.yipatsu,
                 'rinshanchan': this.rinshan || this.chankan,
                 'haihoutei': this.haitei,
