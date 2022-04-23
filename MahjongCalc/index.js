@@ -9,6 +9,7 @@ const VueApp = {
             agari: 'bk',
             fulus: [['bk', 'bk', 'bk'], ['bk', 'bk', 'bk'], ['bk', 'bk', 'bk'], ['bk', 'bk', 'bk']],
             fululogic: 0,
+            babei: 4,
             dora: ['bk', 'bk', 'bk', 'bk', 'bk'],
             ura: ['bk', 'bk', 'bk', 'bk', 'bk'],
             kaze: '1z',
@@ -46,6 +47,7 @@ const VueApp = {
             this.agari = 'bk';
             this.fulus = [['bk', 'bk', 'bk'], ['bk', 'bk', 'bk'], ['bk', 'bk', 'bk'], ['bk', 'bk', 'bk']];
             this.fululogic = 0;
+            this.babei = 0;
             this.dora = ['bk', 'bk', 'bk', 'bk', 'bk'];
             this.ura = ['bk', 'bk', 'bk', 'bk', 'bk'];
             this.kaze = '1z';
@@ -67,6 +69,7 @@ const VueApp = {
                 this.tehai = [];
                 this.agari = '';
                 this.fulus = [[], [], [], []];
+                this.babei = 0;
             }
         },
         modifyselect(selected) {
@@ -89,6 +92,9 @@ const VueApp = {
             if (this.selected.indexOf('kaze') > -1) {
                 // kaze select
                 return tile[1] == 'z' && parseInt(tile[0]) <= 4;
+            }
+            if (this.selected == 'babei') {
+                return tile == '4z';
             }
             return true;
         },
@@ -117,6 +123,10 @@ const VueApp = {
             if (this.selected != 'ura') return;
             this.ura.splice(index, 1);
             this.ura.push('bk');
+        },
+        babeiclick() {
+            if (this.selected != 'babei') return;
+            this.babei = 0;
         },
         tilesclick(tile) {
             if (this.selected == 'tehai') {
@@ -180,6 +190,9 @@ const VueApp = {
                 let fill = this.ura.indexOf('bk');
                 if (fill != -1) this.ura[fill] = tile;
             }
+            else if (this.selected == 'babei') {
+                this.babei = this.babei % 4 + 1;
+            }
         },
         getname(name, input) {
             for (let i = 0; i < name.length; i ++ )
@@ -202,7 +215,8 @@ const VueApp = {
                 'yipatsu': this.yipatsu,
                 'rinshanchan': this.rinshan || this.chankan,
                 'haihoutei': this.haitei,
-                'tenchi': this.tenhou
+                'tenchi': this.tenhou,
+                'pei': this.babei
             };
             for (let i = 0; i < this.fulus.length; i ++ )
                 if (this.fulus[i].length)
@@ -260,6 +274,8 @@ const VueApp = {
             if (count != 0 && (this.reach || this.doublereach)) return false;  // in reach, dora and ura number not same
             let mm = {}
             let all = this.tehai.concat([this.agari], this.dora, this.ura);
+            for (let i = 0; i < this.babei; i ++ )
+                all.push('4z');
             for (let i = 0; i < this.fulus.length; i ++ ) {
                 let ii = this.fulus[i];
                 if (this.fulus[i][0] == 'bk')
@@ -285,7 +301,7 @@ const VueApp = {
 let app = Vue.createApp(VueApp).mount('#outmaindiv');
 console.log(app);
 
-let fullpx = 800;
+let fullpx = 850;
 
 function changesize(){
     let num = window.innerHeight;

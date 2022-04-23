@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
     <title>MahjongCalc</title>
     <link rel="stylesheet" href="index.css" type="text/css" />
     <link rel="stylesheet" href="tiles.css" type="text/css" />
@@ -34,6 +34,12 @@
                     副露{{ index + 1 }}
                     <div style="height: 53px;" @click="fuluclick(index)">
                         <div v-for="(tile, tindex) in fulu" class="tile" :class="'t' + tile"></div>
+                    </div>
+                </div>
+                <div class="babeiwithtile" @click="modifyselect('babei')" :class="selected == 'babei' ? 'selecteddiv' : ''" style="width: 160px;">
+                    拔北
+                    <div style="height: 53px;" @click="babeiclick(index)">
+                        <div v-for="num in babei" class="tile t4z"></div>
                     </div>
                 </div>
             </div>
@@ -141,7 +147,12 @@
                             <div v-for="(tile, tindex) in ura" class="tile" :class="'t' + tile"></div>
                         </div>
                     </div>
-
+                    <div id="babeidiv" class="textwithtile" v-if="babei > 0">
+                        {{babei}}x
+                        <div style="width: 40px;">
+                            <div class="tile t4z"></div>
+                        </div>
+                    </div>
                 </div>
                 <div style="font-size: 200%;">
                     {{ results.yaku }} 番 {{ results.fu }} 符{{ results.resulttitle ? '，' : ''}}{{ results.resulttitle }}

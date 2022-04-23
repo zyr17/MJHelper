@@ -15,7 +15,8 @@ class Algo{
         bafu = 0,
         reach = 0,
         //yipatsu, rinshan/chankan, haitei/houtei, tenhou/chihou
-        specialyaku = '0000'
+        specialyaku = '0000',
+        pei = 0
     ){
         return {
             'hai': hai, 
@@ -32,7 +33,8 @@ class Algo{
             'yipatsu': specialyaku[0] != 0, 
             'rinshanchan': specialyaku[1] != 0, 
             'haihoutei': specialyaku[2] != 0, 
-            'tenchi': specialyaku[3] != 0
+            'tenchi': specialyaku[3] != 0,
+            'pei': pei
         };
     }
 
@@ -924,6 +926,10 @@ class Algo{
                     tmp += checknumber(str, num2tile[nexttile[tile2num[data.ura.slice(i, i + 2)]]]);
                 result.yaku += tmp;
                 result.yakuname.push({ 'name': 'ura', 'han': tmp });
+            }
+            if (data.pei > 0){
+                result.yaku += data.pei;
+                result.yakuname.push({ 'name': 'nukidora', 'han': data.pei });
             }
         }
         

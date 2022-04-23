@@ -6,8 +6,8 @@ body{
     text-align: center;
 }
 body > div > div{
-    width: 800px;
-    height: 800px;
+    width: 850px;
+    height: 850px;
     font-family: '楷体', '宋体';
 }
 input {
@@ -74,7 +74,7 @@ button {
     visibility: hidden;
 }
 
-.fuluwithtile {
+.fuluwithtile, .babeiwithtile {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,7 +83,7 @@ button {
     display: flex;
     align-items: center;
 }
-.fuluwithtile > div, .textwithtile > div {
+.fuluwithtile > div, .textwithtile > div, .babeiwithtile > div {
     height: 53px;
     display: flex;
     justify-content: flex-start;
@@ -124,7 +124,7 @@ label.checked {
     margin: 0.5%;
 }
 #resdorasdiv > * {
-    margin: 2%;
+    margin: 1%;
 }
 #yakufulists {
     display: flex;

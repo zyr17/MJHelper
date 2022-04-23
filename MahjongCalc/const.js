@@ -45,7 +45,7 @@ const hanname = [
     ['四暗刻', 'suanko'], ['四暗刻单骑', 'suankotanki'], ['字一色', 'tsuyisou'], ['绿一色', 'ryouyisou'], 
     ['清老头', 'chinroutou'], ['九莲宝灯', 'churen'], ['纯正九莲宝灯', 'junseichuren'], ['国士无双', 'kokushi'], 
     ['国士无双十三面', 'kokushijusan'], ['大四喜', 'daisushi'], ['小四喜', 'shousushi'], ['四杠子', 'sukantsu'], 
-    ['宝牌', 'dora'], ['里宝牌', 'ura'], ['红宝牌', 'aka'], 
+    ['宝牌', 'dora'], ['里宝牌', 'ura'], ['红宝牌', 'aka'], ['拔北宝牌', 'nukidora']
 ];
 const funame = [
     ['底符', 'teifu'], ['门清荣和', 'menchinron'], ['自摸', 'tsumo'],
