@@ -909,6 +909,8 @@ class Algo{
 
         function dora(data, result){
             var str = data.tehai.join('') + data.agari + data.naki.join('') + data.ankan.join('');
+            for (let i = 0; i < data.pei; i ++ )
+                str += '4z';
             var tmp = 0;
             for (let i = 0; i < data.dora.length; i += 2)
                 tmp += checknumber(str, num2tile[nexttile[tile2num[data.dora.slice(i, i + 2)]]]);
